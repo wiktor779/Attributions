@@ -1,8 +1,8 @@
 import pandas as pd
 
 
-def load_data():
-    df = pd.read_csv('../../data/01_raw/conversion_paths.csv')
+def load_data(path_to_file):
+    df = pd.read_csv(path_to_file)
 
     columns_ordered = [
         'client_uuid',
