@@ -82,6 +82,6 @@ def measure_results(revenue_actual, revenue_predicted):
     return sqrt(mean_squared_error(revenue_actual, revenue_predicted))
 
 
-def predict_naive_results(df, value=581.4):
+def predict_naive_results(df):
     length = df.shape[0]
-    return [value]*length
+    return [df.revenue.mean()]*length
