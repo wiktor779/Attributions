@@ -3,6 +3,9 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 from scipy import stats
 import numpy as np
+from sklearn.metrics import mean_squared_error
+from math import sqrt
+
 
 
 def load_data(path_to_file='../data/01_raw/conversion_paths.csv'):
@@ -73,3 +76,12 @@ def remove_outliers_z_score(df, z=3.5):
     return df[abs_z_scores < z]
 
 
+def measure_results(revenue_actual, revenue_predicted):
+    if len(revenue_actual) != len(revenue_predicted):
+        raise Exception("Length of inputs lists should be the same!")
+    return sqrt(mean_squared_error(revenue_actual, revenue_predicted))
+
+
+def predict_naive_results(df, value=581.4):
+    length = df.shape[0]
+    return [value]*length
