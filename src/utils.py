@@ -1,6 +1,8 @@
 import pandas as pd
 from collections import defaultdict
 import matplotlib.pyplot as plt
+from scipy import stats
+import numpy as np
 
 
 def load_data(path_to_file='../data/01_raw/conversion_paths.csv'):
@@ -55,5 +57,19 @@ def plot_number_of_occurrences(D):
     plt.xticks(range(len(D)), list(D.keys()))
     plt.show()
 
+
+def remove_direct_entries(df, utm):
+    if utm == 'medium':
+        return df[(df.utm_medium != "['(none)']")]
+    elif utm == 'source':
+        return df[(df.utm_medium != "['(direct)']")]
+    else:
+        raise Exception("You need to set utm value ('source' or 'medium')")
+
+
+def remove_outliers_z_score(df, z=3.5):
+    z_scores = stats.zscore(df.revenue)
+    abs_z_scores = np.abs(z_scores)
+    return df[abs_z_scores < z]
 
 
