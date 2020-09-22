@@ -61,13 +61,8 @@ def plot_number_of_occurrences(D):
     plt.show()
 
 
-def remove_direct_entries(df, utm):
-    if utm == 'medium':
-        return df[(df.utm_medium != "['(none)']")]
-    elif utm == 'source':
-        return df[(df.utm_medium != "['(direct)']")]
-    else:
-        raise Exception("You need to set utm value ('source' or 'medium')")
+def remove_direct_entries(df):
+    return df[(df.utm_source != "['(direct)']") & (df.utm_medium != "['(none)']")]
 
 
 def remove_outliers_z_score(df, z=3.5):
