@@ -7,7 +7,6 @@ from sklearn.metrics import mean_squared_error
 from math import sqrt
 
 
-
 def load_data(path_to_file='../data/01_raw/conversion_paths.csv'):
     df = pd.read_csv(path_to_file)
 
