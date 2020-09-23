@@ -79,3 +79,55 @@ def measure_results(revenue_actual, revenue_predicted):
 def predict_naive_results(df):
     length = df.shape[0]
     return [df.revenue.mean()]*length
+
+
+ENCODING_DIC_SOURCE = {
+    None:           [0, 0, 0, 0, 0, 0, 0],
+    '(direct)':     [1, 0, 0, 0, 0, 0, 0],
+    'bing.com':     [0, 1, 0, 0, 0, 0, 0],
+    'facebook':     [0, 0, 1, 0, 0, 0, 0],
+    'facebook.com': [0, 0, 0, 1, 0, 0, 0],
+    'google':       [0, 0, 0, 0, 1, 0, 0],
+    'google.com':   [0, 0, 0, 0, 0, 1, 0],
+    'synerise':     [0, 0, 0, 0, 0, 0, 1],
+}
+ENCODING_DIC_MEDIUM = {
+    None:       [0, 0, 0, 0, 0, 0, 0],
+    '(none)':   [1, 0, 0, 0, 0, 0, 0],
+    'cpc':      [0, 1, 0, 0, 0, 0, 0],
+    'e-mail':   [0, 0, 1, 0, 0, 0, 0],
+    'organic':  [0, 0, 0, 1, 0, 0, 0],
+    'referral': [0, 0, 0, 0, 1, 0, 0],
+    'sms_text': [0, 0, 0, 0, 0, 1, 0],
+    'web_push': [0, 0, 0, 0, 0, 0, 1],
+}
+
+
+def crop_or_fill_to_length(utm_list, n):
+    length = len(utm_list)
+    if length > n:
+        return utm_list[-n:]
+    elif length < n:
+        return [None]*(n-length) + utm_list
+    else:
+        return utm_list
+
+
+def one_hot_encode_into_vector(utm_list, encoding_dic):
+    vector = []
+    for touch in utm_list:
+        vector.extend(encoding_dic[touch])
+    return vector
+
+
+def transform_utm_into_vector(utm, encoding_dic, n):
+    utm = utm.apply(crop_or_fill_to_length, args=(n,))
+    utm = utm.apply(one_hot_encode_into_vector, args=(encoding_dic,))
+    return utm
+
+
+def create_utm_vectors(df, n=10):
+    df['utm_vector_source'] = transform_utm_into_vector(df.utm_source, ENCODING_DIC_SOURCE, n)
+    df['utm_vector_medium'] = transform_utm_into_vector(df.utm_medium, ENCODING_DIC_MEDIUM, n)
+    return df
+
