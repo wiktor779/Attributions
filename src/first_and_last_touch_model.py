@@ -18,7 +18,6 @@ def get_last_touch(touches):
 
 
 def create_touch_columns(df):
-    df = transform_utm_columns_into_list_of_strings(df)
     df['first_touch_utm_source'] = df['utm_source'].apply(get_first_touch)
     df['last_touch_utm_source'] = df['utm_source'].apply(get_last_touch)
     df['first_touch_utm_medium'] = df['utm_medium'].apply(get_first_touch)
