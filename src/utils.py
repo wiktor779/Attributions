@@ -5,6 +5,7 @@ from scipy import stats
 import numpy as np
 from sklearn.metrics import mean_squared_error
 from math import sqrt
+from matplotlib.pyplot import figure
 
 
 def load_data(path_to_file='../data/01_raw/conversion_paths.csv'):
@@ -38,25 +39,24 @@ def transform_utm_columns_into_list_of_strings(df):
 
 def get_unique_values(series):
     unique = set()
-    for sources in series:
-        for source in sources:
-            unique.add(source)
+    for source in series:
+        unique.add(source)
     return unique
 
 
 def get_number_of_occurrences(series):
     occurrences = {}
-    occurrences = defaultdict(lambda:0,occurrences)
+    occurrences = defaultdict(lambda: 0, occurrences)
     for sources in series:
         for source in sources:
             occurrences[source] += 1
     return dict(occurrences)
 
 
-def plot_number_of_occurrences(D):
-    plt.rcParams["figure.figsize"]=20,10
-    plt.bar(range(len(D)), list(D.values()), align='center')
-    plt.xticks(range(len(D)), list(D.keys()))
+def plot_number_of_occurrences(d):
+    plt.rcParams["figure.figsize"] = 20, 10
+    plt.bar(range(len(d)), list(d.values()), align='center')
+    plt.xticks(range(len(d)), list(d.keys()))
     plt.show()
 
 
@@ -131,3 +131,10 @@ def create_utm_vectors(df, n=10):
     df['utm_vector_medium'] = transform_utm_into_vector(df.utm_medium, ENCODING_DIC_MEDIUM, n)
     return df
 
+
+def visualize_channel_impact(impact_dict, filename):
+    fig = figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+    fig.suptitle(filename, fontsize=20)
+    plt.bar(range(len(impact_dict)), list(impact_dict.values()), align='center')
+    plt.xticks(range(len(impact_dict)), list(impact_dict.keys()))
+    plt.savefig(f'../results/{filename}.png')
