@@ -6,6 +6,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 from matplotlib.pyplot import figure
+from collections import Counter
 
 
 def load_data(path_to_file='../data/01_raw/conversion_paths.csv'):
@@ -138,3 +139,17 @@ def visualize_channel_impact(impact_dict, filename):
     plt.bar(range(len(impact_dict)), list(impact_dict.values()), align='center')
     plt.xticks(range(len(impact_dict)), list(impact_dict.keys()))
     plt.savefig(f'../results/{filename}.png')
+
+
+def save_to_file_utm_source_and_medium_pairs_occurrence(df):
+    pairs = []
+    for index, row in df.iterrows():
+        for index_utm in range(len(row.utm_source)):
+            pair = (row.utm_source[index_utm], row.utm_medium[index_utm])
+            pairs.append(pair)
+
+    c = Counter(pairs)
+    with open('../results/utm_source_and_medium_pairs_occurrence.txt', 'w') as f:
+        for k, v in c.most_common():
+            f.write(f'{k} {v}\n')
+    return c

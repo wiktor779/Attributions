@@ -4,6 +4,7 @@ from src.first_and_last_touch_model import *
 df = load_data()
 df = transform_utm_columns_into_list_of_strings(df)
 df = create_touch_columns(df)
+# save_to_file_utm_source_and_medium_pairs_occurrence(df)  # take long time
 
 touch_methods = ['first_touch_utm_source',
                  'last_touch_utm_source',
