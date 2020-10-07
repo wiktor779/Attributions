@@ -67,7 +67,7 @@ def remove_nones(path):
 
 def remove_none_entries(df):
     df['utm_medium'] = df['utm_medium'].apply(remove_nones)
-    df[df.utm_medium.str.len() > 0]
+    df = df[df.utm_medium.str.len() > 0]
     return df
 
 

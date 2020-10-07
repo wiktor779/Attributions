@@ -41,3 +41,10 @@ def predict_channel_impact(df, utm, percentage=False):
         return transform_into_percentage_values(revenue_sum_for_each_channel)
     return revenue_sum_for_each_channel
 
+
+def predict_naive(df, utm):
+    means_for_each_channel = {}
+    for channel in get_unique_values(df[utm]):
+        means_for_each_channel[channel] = df[df[utm] == channel].revenue.mean()
+
+    return df.apply(lambda x: means_for_each_channel[x[utm]], axis=1).to_list()
