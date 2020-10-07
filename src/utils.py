@@ -61,8 +61,14 @@ def plot_number_of_occurrences(d):
     plt.show()
 
 
-def remove_direct_entries(df):
-    return df[(df.utm_source != "['(direct)']") & (df.utm_medium != "['(none)']")]
+def remove_nones(path):
+    return [touch for touch in path if touch != '(none)']
+
+
+def remove_none_entries(df):
+    df['utm_medium'] = df['utm_medium'].apply(remove_nones)
+    df[df.utm_medium.str.len() > 0]
+    return df
 
 
 def remove_outliers_z_score(df, z=3.5):
