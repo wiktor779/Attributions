@@ -1,6 +1,7 @@
 from scipy import stats
 import numpy as np
-from src.d01_data.load_data import *
+from src.d00_utils.utils import remove_utm_from_path
+from src.d01_data.load_data import load_data
 
 
 def _create_list_from_string(text):
@@ -17,16 +18,6 @@ def transform_utm_columns_into_list_of_strings(df):
     return df
 
 
-def _remove_nones(path):
-    return [touch for touch in path if touch != '(none)']
-
-
-def remove_nones_from_conversions_path(df):
-    # TODO: usuwać wszystkie pozostałe informacje (utm_source, timestamps itd) a nie tylko utm_medium_list
-    df.utm_medium_list = df.utm_medium_list.apply(_remove_nones)
-    return df
-
-
 def remove_outliers_z_score(df, z=3.5):
     z_scores = stats.zscore(df.revenue)
     abs_z_scores = np.abs(z_scores)
@@ -36,5 +27,5 @@ def remove_outliers_z_score(df, z=3.5):
 if __name__ == "__main__":
     conversion_paths = load_data()
     conversion_paths = transform_utm_columns_into_list_of_strings(conversion_paths)
-    conversion_paths = remove_nones_from_conversions_path(conversion_paths)
+    conversion_paths = remove_utm_from_path(conversion_paths, '(none)')
     conversion_paths.to_pickle('../../data/02_intermediate/cleaned.pkl')
