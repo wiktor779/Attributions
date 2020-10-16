@@ -23,5 +23,5 @@ if __name__ == "__main__":
 
     channels_impact = measure_channels_impact(conversion_paths_test, predict_last_touch)
     visualize_channel_impact(channels_impact, 'last_touch')
-    print(channels_impact)
+    print(f'Channels impact in percentage {channels_impact}')
 
