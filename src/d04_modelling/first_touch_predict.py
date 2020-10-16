@@ -16,8 +16,8 @@ def first_touch_predict(df):
 if __name__ == "__main__":
     conversion_paths = pd.read_pickle('../../data/02_intermediate/cleaned.pkl')
     conversion_paths_train, conversion_paths_test = split_data_into_train_and_test(conversion_paths)
-    revenue_predicted_first_touch = first_touch_predict(conversion_paths_test)
-    rmse = measure_results(conversion_paths_test.revenue, revenue_predicted_first_touch)
+    revenue_predicted = first_touch_predict(conversion_paths_test)
+    rmse = measure_results(conversion_paths_test.revenue, revenue_predicted)
     print(f'First touch \tRMSE: {rmse}')
 
     channels_impact = measure_channels_impact(conversion_paths_test, first_touch_predict)
