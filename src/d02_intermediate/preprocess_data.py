@@ -1,6 +1,6 @@
 from scipy import stats
 import numpy as np
-from src.d00_utils.utils import remove_utm_from_path
+from src.d00_utils.utils import remove_channel_from_path
 from src.d01_data.load_data import load_data
 
 
@@ -27,5 +27,5 @@ def remove_outliers_z_score(df, z=3.5):
 if __name__ == "__main__":
     conversion_paths = load_data()
     conversion_paths = transform_utm_columns_into_list_of_strings(conversion_paths)
-    conversion_paths = remove_utm_from_path(conversion_paths, '(none)')
+    conversion_paths = remove_channel_from_path(conversion_paths, '(none)')
     conversion_paths.to_pickle('../../data/02_intermediate/cleaned.pkl')

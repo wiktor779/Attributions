@@ -28,13 +28,12 @@ def _remove_from_path(path, utm_to_remove):
     return [touch for touch in path if touch != utm_to_remove]
 
 
-def remove_utm_from_path(df, utm_to_remove):
+def remove_channel_from_path(df, channel_to_remove):
     # TODO: usuwać wszystkie pozostałe informacje (utm_source, timestamps itd) a nie tylko utm_medium_list
-    df.utm_medium_list = df.utm_medium_list.apply(_remove_from_path, args=(utm_to_remove,))
+    df = df.copy()
+    df['utm_medium_list'] = df['utm_medium_list'].apply(_remove_from_path, args=(channel_to_remove,))
     df = df[df.utm_medium_list.map(len) > 0]
     return df
-
-
 
 
 
