@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     model_dense = create_model_dense()
     model_dense.fit(x_train, y_train, batch_size=32, epochs=5, validation_data=(x_test, y_test))
-    model_dense.save('../../data/04_models/model_dense_small.h5')
+    model_dense.save('../../data/04_models/basic_dense_model.h5')
 
     predicted_dense = model_dense.predict(x_test)
     rmse = measure_results(y_test, predicted_dense)
