@@ -29,4 +29,6 @@ if __name__ == '__main__':
     conversion_paths = pd.read_pickle('../../data/02_intermediate/cleaned.pkl')
     conversion_paths['utm_medium_embedded'] = transform_utm_into_vector(
         conversion_paths.utm_medium_list, ENCODING_DIC_UTM_MEDIUM, 10)
-    conversion_paths.to_pickle('../../data/03_processed/added_embedded_vector.pkl')
+    filepath = '../../data/03_processed/added_embedded_vector.pkl'
+    conversion_paths.to_pickle(filepath)
+    print(f'Saved file to: {filepath}')

@@ -4,6 +4,8 @@ from keras.models import Sequential
 from src.d00_utils.utils import split_data_into_train_and_test
 from src.d05_model_evaluation.measure_results import measure_results
 
+model_name = 'dense_model_small'
+
 
 def create_model_dense():
     model = Sequential()
@@ -25,7 +27,9 @@ if __name__ == "__main__":
 
     model_dense = create_model_dense()
     model_dense.fit(x_train, y_train, batch_size=32, epochs=5, validation_data=(x_test, y_test))
-    model_dense.save('../../data/04_models/basic_dense_model.h5')
+    filepath = f'../../data/04_models/{model_name}.h5'
+    model_dense.save(filepath)
+    print(f'Saved file to: {filepath}')
 
     predicted_dense = model_dense.predict(x_test)
     rmse = measure_results(y_test, predicted_dense)
