@@ -1,4 +1,5 @@
 /data/01_raw/conversion_paths.csv
 /data/02_intermediate/cleaned.pkl
 /data/03_processed/added_embedded_vector.pkl
-/data/04_models/model_dense_small.h5
+/data/04_models/dense_model_small.h5
+/data/04_models/dense_model_small.h5
