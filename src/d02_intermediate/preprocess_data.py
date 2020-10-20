@@ -26,6 +26,7 @@ def remove_outliers_z_score(df, z=3.5):
 
 if __name__ == "__main__":
     conversion_paths = load_data()
+    conversion_paths = remove_outliers_z_score(conversion_paths, 3.5)
     conversion_paths = transform_utm_columns_into_list_of_strings(conversion_paths)
     conversion_paths = remove_channel_from_path(conversion_paths, '(none)')
     filepath = '../../data/02_intermediate/cleaned.pkl'
