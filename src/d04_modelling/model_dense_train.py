@@ -10,9 +10,9 @@ model_name = 'dense_model_small'
 def create_model_dense():
     model = Sequential()
     model.add(Dense(60, activation='relu', input_shape=(60,)))
-    model.add(Dense(10))
+    model.add(Dense(10, activation='relu'))
     model.add(Dense(1))
-    model.compile(optimizer="rmsprop", loss="mse", metrics=['acc', 'mse'])
+    model.compile(optimizer="rmsprop", loss="mse", metrics=['mse', 'mae'])
     return model
 
 
