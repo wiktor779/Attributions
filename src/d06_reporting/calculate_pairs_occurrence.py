@@ -7,7 +7,7 @@ def save_to_file_utm_source_and_medium_pairs_occurrence(df):
     pairs = []
     for index, row in df.iterrows():
         for index_utm in range(len(row.utm_source_list)):
-            pair = (row.utm_source[index_utm], row.utm_medium_list[index_utm])
+            pair = (row.utm_source_list[index_utm], row.utm_medium_list[index_utm])
             pairs.append(pair)
 
     c = Counter(pairs)
