@@ -3,7 +3,6 @@ import pandas as pd
 
 
 def save_to_file_utm_source_and_medium_pairs_occurrence(df):
-    # TODO: to na razie nie działa, bo trzeba pierwszye rozwiązać todo w remove_channel_from_path
     pairs = []
     for index, row in df.iterrows():
         for index_utm in range(len(row.utm_source_list)):
