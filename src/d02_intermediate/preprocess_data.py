@@ -31,7 +31,8 @@ if __name__ == "__main__":
     conversion_paths = load_data()
     conversion_paths = remove_outliers_z_score(conversion_paths, 3.5)
     conversion_paths = transform_utm_columns_into_list(conversion_paths)
-    conversion_paths = remove_channel_from_path(conversion_paths, '(none)')
-    filepath = '../../data/02_intermediate/cleaned.pkl'
-    conversion_paths.to_pickle(filepath)
-    print(f'Saved file to: {filepath}')
+    conversion_paths.to_pickle('../../data/02_intermediate/converted_into_lists.pkl')
+    conversion_paths = remove_channel_from_path(conversion_paths, '(none)', 'utm_medium_list')
+    conversion_paths = remove_channel_from_path(conversion_paths, '(direct)', 'utm_source_list')
+    conversion_paths.to_pickle('../../data/02_intermediate/cleaned.pkl')
+    print(f'Saved files to ../../data/02_intermediate')
