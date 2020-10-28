@@ -27,6 +27,10 @@ def remove_outliers_z_score(df, z=3.5):
     return df[abs_z_scores < z]
 
 
+def _unify_source_names(path):
+    return [source.replace('.com', '') for source in path]
+
+
 if __name__ == "__main__":
     conversion_paths = load_data()
     conversion_paths = remove_outliers_z_score(conversion_paths, 3.5)
@@ -34,5 +38,7 @@ if __name__ == "__main__":
     conversion_paths.to_pickle('../../data/02_intermediate/converted_into_lists.pkl')
     conversion_paths = remove_channel_from_path(conversion_paths, '(none)', 'utm_medium_list')
     conversion_paths = remove_channel_from_path(conversion_paths, '(direct)', 'utm_source_list')
+    conversion_paths.to_pickle('../../data/02_intermediate/removed_direct_entries.pkl')
+    conversion_paths['utm_source_list'] = conversion_paths['utm_source_list'].apply(_unify_source_names)
     conversion_paths.to_pickle('../../data/02_intermediate/cleaned.pkl')
     print(f'Saved files to ../../data/02_intermediate')
