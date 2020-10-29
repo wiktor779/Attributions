@@ -5,11 +5,9 @@ FILENAME = f'added_embedded_vectors_{VECTOR_LENGTH}'
 
 ENCODING_DIC_UTM_SOURCE = {
     'google':       [1, 0, 0, 0],
-    'google.com':   [1, 0, 0, 0],
     'facebook':     [0, 1, 0, 0],
-    'facebook.com': [0, 1, 0, 0],
     'synerise':     [0, 0, 1, 0],
-    'bing.com':     [0, 0, 0, 1],
+    'bing':         [0, 0, 0, 1],
 }
 
 ENCODING_DIC_UTM_MEDIUM = {
