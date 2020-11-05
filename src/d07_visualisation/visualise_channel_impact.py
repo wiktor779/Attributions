@@ -10,8 +10,8 @@ def visualize_channel_impact(impact_dict, filename):
                  1.002 * height, height, ha='center', va='bottom')
 
     plt.title(filename)
-    plt.xlabel("Channel")
-    plt.ylabel("Impact")
+    plt.xlabel("KANAŁ")
+    plt.ylabel("WPŁYW (%)")
 
     filepath = f'../../results/{filename}.png'
     plt.savefig(filepath)
